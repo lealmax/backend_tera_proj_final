@@ -1,7 +1,10 @@
 import express from "express";
 import contentController from "../controllers/contentController.js";
+import { authenticateMiddleware } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
+
+router.use(authenticateMiddleware);
 
 router.get("/", contentController.getAllContents);
 router.get("/:id", contentController.getContentById);

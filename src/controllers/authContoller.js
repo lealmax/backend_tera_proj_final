@@ -2,7 +2,14 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 
-// Função para autenticar um usuário
+const STATUS_NOT_FOUND = 404;
+const STATUS_UNAUTHORIZED = 401;
+const STATUS_SERVER_ERROR = 500;
+
+const MESSAGE_NOT_FOUND = "Usuário não encontrado.";
+const MESSAGE_UNAUTHORIZED = "Credenciais inválidas.";
+const MESSAGE_SERVER_ERROR = "Erro ao autenticar usuário.";
+
 async function authenticateUser(req, res) {
   const { email, password } = req.body;
   try {
@@ -10,17 +17,18 @@ async function authenticateUser(req, res) {
 
     const user = await User.findOne({ email });
     if (!user) {
-      console.log("Usuário não encontrado.");
-      return res.status(404).json({ message: "Usuário não encontrado." });
+      console.log(MESSAGE_NOT_FOUND);
+      return res.status(STATUS_NOT_FOUND).json({ message: MESSAGE_NOT_FOUND });
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      console.log("Credenciais inválidas.");
-      return res.status(401).json({ message: "Credenciais inválidas." });
+      console.log(MESSAGE_UNAUTHORIZED);
+      return res
+        .status(STATUS_UNAUTHORIZED)
+        .json({ message: MESSAGE_UNAUTHORIZED });
     }
 
-    // Gere um novo token com a senha atualizada
     const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
       expiresIn: "1h",
     });
@@ -29,7 +37,7 @@ async function authenticateUser(req, res) {
     res.json({ token });
   } catch (err) {
     console.error("Erro ao autenticar usuário:", err);
-    res.status(500).json({ message: "Erro ao autenticar usuário." });
+    res.status(STATUS_SERVER_ERROR).json({ message: MESSAGE_SERVER_ERROR });
   }
 }
 

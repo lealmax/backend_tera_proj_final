@@ -1,11 +1,10 @@
 import express from "express";
-// import mongoose from "mongoose";
+import db from "./config/database.js";
 import userRoutes from "./routes/userRoutes.js";
 import courseRoutes from "./routes/courseRoutes.js";
 import contentRoutes from "./routes/contentRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 
-import db from "./config/database.js";
 db.connect();
 
 // Carregando as variáveis de ambiente com o dotenv-safe
