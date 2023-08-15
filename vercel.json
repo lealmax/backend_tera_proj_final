@@ -15,10 +15,6 @@
         "src": "/(.*)",
         "dest": "src/app.js"
       }
-    ],
-    "env": {
-      "MONGODB_URI": "@mongodb-uri",
-      "SECRET_KEY": "@secret-key"
-    }
+    ]
   }
   
