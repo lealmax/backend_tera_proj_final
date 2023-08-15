@@ -19,10 +19,6 @@
     "env": {
       "MONGODB_URI": "@mongodb-uri",
       "SECRET_KEY": "@secret-key"
-    },
-    "envSecrets": {
-      "MONGODB_URI": "mongodb-uri",
-      "SECRET_KEY": "secret-key"
     }
   }
   
