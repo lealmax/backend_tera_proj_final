@@ -1,0 +1,28 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "src/app.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/(.*)",
+        "dest": "src/app.js"
+      },
+      {
+        "src": "/(.*)",
+        "dest": "src/app.js"
+      }
+    ],
+    "env": {
+      "MONGODB_URI": "@mongodb-uri",
+      "SECRET_KEY": "@secret-key"
+    },
+    "envSecrets": {
+      "MONGODB_URI": "mongodb-uri",
+      "SECRET_KEY": "secret-key"
+    }
+  }
+  
