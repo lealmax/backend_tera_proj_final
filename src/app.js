@@ -4,17 +4,12 @@ import userRoutes from "./routes/userRoutes.js";
 import courseRoutes from "./routes/courseRoutes.js";
 import contentRoutes from "./routes/contentRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+import dotenv from "dotenv"; // Importando dotenv
 
 db.connect();
 
-// Carregando as variáveis de ambiente com o dotenv-safe
-import { config as dotenvConfig } from "dotenv-safe";
-const result = dotenvConfig({
-  example: ".env.example", // Indicando o arquivo .env.example como referência
-});
-if (result.error) {
-  throw result.error;
-}
+// Carregando as variáveis de ambiente com dotenv
+dotenv.config(); // Carregando as variáveis de ambiente do arquivo .env
 
 const app = express();
 
