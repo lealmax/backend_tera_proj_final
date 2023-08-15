@@ -29,7 +29,7 @@ async function getContentById(req, res) {
 async function createContent(req, res) {
   const { title, description } = req.body;
   try {
-    const newContent = await Content.create({ title, description });
+    const newContent = await Content.create({ title, description }); // Criação do conteúdo
     res.status(201).json(newContent);
   } catch (err) {
     res.status(400).json({
@@ -38,6 +38,19 @@ async function createContent(req, res) {
     });
   }
 }
+
+// async function createContent(req, res) {
+//   const { title, description } = req.body;
+//   try {
+//     const newContent = await Content.create({ title, description });
+//     res.status(201).json(newContent);
+//   } catch (err) {
+//     res.status(400).json({
+//       message: "Erro ao criar conteúdo educacional.",
+//       error: err.message,
+//     });
+//   }
+// }
 
 // Função para atualizar um conteúdo educacional existente
 async function updateContent(req, res) {
