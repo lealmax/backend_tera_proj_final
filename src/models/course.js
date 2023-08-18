@@ -5,10 +5,11 @@ const courseSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  description: {
+  url: {
     type: String,
     required: true,
   },
+  playlist: [String],
 });
 
 const Course = mongoose.model("Course", courseSchema);

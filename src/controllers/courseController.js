@@ -27,9 +27,9 @@ async function getCourseById(req, res) {
 
 // Função para criar um novo curso
 async function createCourse(req, res) {
-  const { title, description } = req.body;
+  const { title, url, playlist } = req.body;
   try {
-    const newCourse = await Course.create({ title, description });
+    const newCourse = await Course.create({ title, url, playlist });
     res.status(201).json(newCourse);
   } catch (err) {
     res
@@ -41,11 +41,11 @@ async function createCourse(req, res) {
 // Função para atualizar um curso existente
 async function updateCourse(req, res) {
   const { id } = req.params;
-  const { title, description } = req.body;
+  const { title, url } = req.body;
   try {
     const updatedCourse = await Course.findByIdAndUpdate(
       id,
-      { title, description },
+      { title, url },
       { new: true }
     );
     if (updatedCourse) {
@@ -75,10 +75,22 @@ async function deleteCourse(req, res) {
   }
 }
 
+// Função para obter cursos por playlist
+async function getCoursesByPlaylist(req, res) {
+  const { playlist } = req.params;
+  try {
+    const courses = await Course.find({ playlist: playlist });
+    res.json(courses);
+  } catch (err) {
+    res.status(500).json({ message: "Erro ao buscar cursos por playlist." });
+  }
+}
+
 export default {
   getAllCourses,
   getCourseById,
   createCourse,
   updateCourse,
   deleteCourse,
+  getCoursesByPlaylist,
 };
