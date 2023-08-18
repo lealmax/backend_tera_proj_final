@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import db from "./config/database.js";
 import userRoutes from "./routes/userRoutes.js";
 import courseRoutes from "./routes/courseRoutes.js";
@@ -14,6 +15,7 @@ dotenv.config(); // Carregando as variáveis de ambiente do arquivo .env
 const app = express();
 
 // Configuração de middlewares e parsers
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
